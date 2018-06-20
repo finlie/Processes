@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     if (rc < 0)
     {
-        printf("Fork failed \n");
+        fprintf(stderr, "Fork failed \n");
         exit(1);
     }
     else if (rc == 0)
