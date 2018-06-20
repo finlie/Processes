@@ -8,7 +8,27 @@
 
 int main(int argc, char *argv[])
 {
-    // Your code here
+    int x = 100;
+    printf("x is originally set to %d\n", x);
+    int rc = fork();
+    if (rc < 0)
+    {
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if (rc == 0)
+    {
+        printf("Before changing X in child(PID: %d): x = %d\n", (int)getpid(), x);
+        x = 500;
+        printf("After changing X in child(PID: %d): x = %d\n", (int)getpid(), x);
+    }
+    else
+    {
+        int wc = waitpid(rc, NULL, 0);
+        printf("Before changing X in parent(PID: %d): x= %d\n", (int)getpid(), x);
+        x = 3;
+        printf("After changing X in parent(PID: %d): x = %d\n", (int)getpid(), x);
+    }
 
     return 0;
 }
